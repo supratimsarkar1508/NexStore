@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900;
+}
+
+.admin-sidebar-item {
+  @apply flex items-center space-x-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer;
+}
+
+.btn-primary {
+  @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md transition-all active:scale-95;
+}
+
+.card {
+  @apply bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm;
+}
