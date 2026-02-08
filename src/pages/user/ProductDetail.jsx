@@ -14,6 +14,9 @@ const ProductDetail = () => {
   const [activeImage, setActiveImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
+  
+  const USD_TO_INR = 91;
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -99,12 +102,17 @@ const ProductDetail = () => {
               <span className="text-sm text-gray-500 font-medium">SKU: {product.sku}</span>
             </div>
             <div className="flex items-end space-x-3">
-              <span className="text-4xl font-bold text-gray-900">${product.price}</span>
+              {/* Price in INR */}
+              <span className="text-4xl font-bold text-gray-900">
+                ₹{(product.price * USD_TO_INR).toFixed(2)}
+              </span>
               {product.discountPercentage > 0 && (
                 <div className="flex flex-col mb-1">
-                  <span className="text-sm text-red-500 font-bold">-{Math.round(product.discountPercentage)}% OFF</span>
+                  <span className="text-sm text-red-500 font-bold">
+                    -{Math.round(product.discountPercentage)}% OFF
+                  </span>
                   <span className="text-lg text-gray-400 line-through leading-none">
-                    ${(product.price * (1 + product.discountPercentage / 100)).toFixed(2)}
+                    ₹{(product.price * (1 + product.discountPercentage / 100) * USD_TO_INR).toFixed(2)}
                   </span>
                 </div>
               )}
