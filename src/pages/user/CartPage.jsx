@@ -12,6 +12,9 @@ const CartPage = () => {
     clearCart();
   };
 
+  // Conversion rate
+  const USD_TO_INR = 91;
+
   if (cart.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-32 text-center">
@@ -19,7 +22,9 @@ const CartPage = () => {
           <ShoppingBag className="h-12 w-12 text-gray-300" />
         </div>
         <h2 className="text-3xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-        <p className="text-gray-500 mb-8 max-w-sm mx-auto">Looks like you haven't added anything yet. Discover our latest collections.</p>
+        <p className="text-gray-500 mb-8 max-w-sm mx-auto">
+          Looks like you haven't added anything yet. Discover our latest collections.
+        </p>
         <Link to="/shop" className="btn-primary inline-flex items-center px-8 py-3">
           Explore Shop
         </Link>
@@ -32,6 +37,7 @@ const CartPage = () => {
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Shopping Bag ({cart.length})</h1>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        {/* Cart Items */}
         <div className="lg:col-span-2 space-y-6">
           {cart.map((item) => (
             <div key={item.id} className="card p-4 flex gap-6">
@@ -44,7 +50,10 @@ const CartPage = () => {
                     <h3 className="font-bold text-gray-900">{item.title}</h3>
                     <p className="text-sm text-gray-500 capitalize">{item.category}</p>
                   </div>
-                  <p className="font-bold text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                  {/* Price in INR */}
+                  <p className="font-bold text-gray-900">
+                    ₹{(item.price * USD_TO_INR * item.quantity).toFixed(2)}
+                  </p>
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex items-center border rounded-lg bg-gray-50 p-1">
@@ -80,13 +89,14 @@ const CartPage = () => {
           </Link>
         </div>
 
+        {/* Order Summary */}
         <div className="lg:col-span-1">
           <div className="card p-8 sticky top-24">
             <h2 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
             <div className="space-y-4 mb-8">
               <div className="flex justify-between text-gray-500">
                 <span>Subtotal</span>
-                <span>${cartTotal.toFixed(2)}</span>
+                <span>₹{(cartTotal * USD_TO_INR).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-gray-500">
                 <span>Shipping</span>
@@ -94,11 +104,13 @@ const CartPage = () => {
               </div>
               <div className="flex justify-between text-gray-500">
                 <span>Estimated Tax</span>
-                <span>$0.00</span>
+                <span>₹0.00</span>
               </div>
               <div className="pt-4 border-t border-gray-100 flex justify-between">
                 <span className="text-xl font-bold text-gray-900">Total</span>
-                <span className="text-xl font-bold text-primary-600">${cartTotal.toFixed(2)}</span>
+                <span className="text-xl font-bold text-primary-600">
+                  ₹{(cartTotal * USD_TO_INR).toFixed(2)}
+                </span>
               </div>
             </div>
             <button 
